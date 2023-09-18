@@ -12,4 +12,5 @@ urlpatterns = [
     path('categories/create/', views.CategoryCreate.as_view(), name='ctg_create'),
     path('categories/<int:category_id>/', views.categories_detail, name='categories_detail'),
     path('categories/<int:pk>/update/', views.CategoryUpdate.as_view(), name='categories_update'),
+    path('categories/', views.CategoryList.as_view(), name='categories_index'),
 ]

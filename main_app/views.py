@@ -55,6 +55,9 @@ class CategoryUpdate(UpdateView):
   model = Category
   fields = ['title']
 
+class CategoryList(ListView):
+  model = Category
+
 # class CategoryDetail(ListView):
 #   model = Expense
 #   context_object_name = 'expenses'
