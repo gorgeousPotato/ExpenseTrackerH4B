@@ -16,7 +16,7 @@
 <div class="expenses">
   <div class="expenses-btn-container">
     <h3>Expenses</h3>
-    <form action="/" method="" class="add-expense-btn">
+    <form action="{% url 'expenses_create' %}" class="add-expense-btn">
       <button type="submit" class="btn btn-primary btn-sm">+</button>
     </form>
   </div>
@@ -28,6 +28,7 @@
           <th scope="col">Title</th>
           <th scope="col">Amount</th>
           <th scope="col">Category</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -37,7 +38,9 @@
           <td>{{ expense.title }}</td>
           <td>{{ expense.amount }}</td>
           <td><span class="category c-1">{{ expense.category }}</span></td>
+          <td><a href="{% url 'detail' expense.id %}">Details</a></td>
         </tr>
+        </a>
         {% endfor %}
       </tbody>
     </table>

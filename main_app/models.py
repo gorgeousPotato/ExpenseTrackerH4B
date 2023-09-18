@@ -15,6 +15,7 @@ class Budget(models.Model):
   
 class Category(models.Model):
   title=models.CharField(max_length=50)
+  icon=models.CharField(max_length=200, default='fa-dollar-sign')
   
   def __str__(self):
     return f"{self.title}"
@@ -29,8 +30,14 @@ class Expense(models.Model):
   def __str__(self):
     return f"{self.title} on {self.date}"
    
+  def get_absolute_url(self):
+      return reverse("index")
+  
+
   class Meta:
     ordering = ['-date']
+
+
 
 
   
