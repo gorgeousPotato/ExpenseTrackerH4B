@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-size: 14px;
+  margin: 0 4rem;
+}
+
+.categories {
+  margin-top: 6rem;
+}
+
+.expenses {
+  margin-top: 3rem;
+  grid-row: 1 / span 2;
+  grid-column: 2 / 3;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  grid-template-rows: 2fr 3fr;
+  height: 80vh;
+  gap: 1rem;
+}
+
+.expense-table {
+  font-size: 1rem;
+}
+
+.category {
+  border-radius: 100px;
+  padding: 0.2rem;
+}
+
+.c-1 {
+  background-color: rgb(211, 165, 254);
+}
+
+.c-2 {
+  background-color: rgb(181, 255, 201);
+}
+
+.c-3 {
+  background-color: rgb(255, 198, 241);
+}
+
+.progress {
+  margin: 2rem auto 0 auto;
+  width: 100%;
+  height: 2rem;
+}
+
+.progress-bar {
+  background-color: rgb(129, 99, 157);
+}
+
+.accent-h1 {
+  font-size: 4rem;
+  margin-right: 2rem;
+}
+
+.flex-2-col {
+  margin-top: 3rem;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.exp-by-cat-container {
+  display: flex;
+}
+
+.category-card {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.category-card img {
+  width: 4rem;
+}
+
+p {
+  color: rgb(171, 171, 171);
+}
+
+.expenses-btn-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-sm {
+  background-color: rgb(129, 99, 157);
+  border: none;
+}
+
+.btn-sm:hover {
+  background-color: rgb(177, 151, 201);
+}
+
+/* Home page */
+
+.bg-body-tertiary {
+  background-color: none !important;
+  border: none !important;
+}
