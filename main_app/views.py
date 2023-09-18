@@ -4,6 +4,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Expense, Category
+from django.db.models import Sum
+
 
 # Create your views here.
 def home(request):
