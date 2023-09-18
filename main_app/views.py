@@ -49,7 +49,11 @@ class ExpenseDelete(DeleteView):
 
 class CategoryCreate(CreateView):
   model = Category
-  fields = '__all__'
+  fields = ['title']
+
+class CategoryUpdate(UpdateView):
+  model = Category
+  fields = ['title']
 
 # class CategoryDetail(ListView):
 #   model = Expense
