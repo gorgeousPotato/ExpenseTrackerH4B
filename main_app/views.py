@@ -3,7 +3,7 @@ from .models import Expense
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Expense
 
 # Create your views here.
@@ -28,6 +28,13 @@ class ExpenseCreate(CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)  
 
+class ExpenseUpdate(UpdateView):
+  model = Expense
+  fields = ['title', 'amount', 'date', 'category']
+
+class ExpenseDelete(DeleteView):
+  model = Expense
+  success_url = '/expenses'
 
 def signup(request):
   error_message = ''
@@ -47,3 +54,5 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+  
