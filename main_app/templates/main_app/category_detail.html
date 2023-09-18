@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1> {{ category.title }} </h1>
+
+<tbody>
+    {% for expense in expenses %}
+    <tr>
+        <td>{{ expense.date }}</td>
+        <td>{{ expense.title }}</td>
+        <td>{{ expense.amount }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+{% endblock %}

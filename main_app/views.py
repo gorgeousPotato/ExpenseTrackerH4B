@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView
 from .models import Expense, Category
 from django.db.models import Sum
 
@@ -14,14 +15,21 @@ def home(request):
 def expenses_index(request):
   expenses = Expense.objects.filter(user=request.user)
   categories = Category.objects.all()
+  category_expenses = Category.objects.annotate(total_expenses=Sum('expense__amount'))
   return render(request, 'expenses/index.html', {
     'expenses': expenses,
-    'categories': categories
+    'categories': categories,
+    'category_expenses': category_expenses
   })
 
 def expenses_detail(request, expense_id):
   expense = Expense.objects.get(id=expense_id)
   return render(request, 'expenses/detail.html', { 'expense': expense })
+
+def categories_detail(request, category_id):
+  category = Category.objects.get(id=category_id)
+  expenses = Expense.objects.filter(category=category)
+  return render(request, 'main_app/category_detail.html', { 'category': category, 'expenses': expenses})
 
 class ExpenseCreate(CreateView):
   model = Expense
@@ -38,6 +46,16 @@ class ExpenseUpdate(UpdateView):
 class ExpenseDelete(DeleteView):
   model = Expense
   success_url = '/expenses'
+
+class CategoryCreate(CreateView):
+  model = Category
+  fields = '__all__'
+
+# class CategoryDetail(ListView):
+#   model = Expense
+#   context_object_name = 'expenses'
+
+#   def get_queryset()
 
 def signup(request):
   error_message = ''
@@ -58,6 +76,3 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-class CategoryCreate(CreateView):
-  model = Category
-  fields = '__all__'
