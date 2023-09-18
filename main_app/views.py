@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .models import Expense
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -18,10 +19,16 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('home')
+      return redirect('index')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+def expenses_index(request):
+  expenses = Expense.objects.filter(user=request.user)
+  return render(request, 'expenses/index.html', {
+    'expenses': expenses
+  })
