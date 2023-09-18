@@ -29,8 +29,14 @@ class Expense(models.Model):
   def __str__(self):
     return f"{self.title} on {self.date}"
    
+  def get_absolute_url(self):
+      return reverse("index")
+  
+
   class Meta:
     ordering = ['-date']
+
+
 
 
   
