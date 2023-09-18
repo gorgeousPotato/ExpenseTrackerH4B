@@ -9,6 +9,6 @@ urlpatterns = [
     path('expenses/create/', views.ExpenseCreate.as_view(), name='expenses_create'),
     path('expenses/<int:pk>/update/', views.ExpenseUpdate.as_view(), name='expenses_update'),
     path('expenses/<int:pk>/delete/', views.ExpenseDelete.as_view(), name='expenses_delete'),
-    path('categories/create/', views.CategoryCreate.as_view(), name='ctg_create')
-    # path('categories/<int:pk>/', views.categories_detail, name='categories_detail'),
+    path('categories/create/', views.CategoryCreate.as_view(), name='ctg_create'),
+    path('categories/<int:category_id>/', views.categories_detail, name='categories_detail'),
 ]
