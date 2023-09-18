@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Expense
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
-from .models import Expense
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import Expense, Category
 
 # Create your views here.
 def home(request):
@@ -12,8 +11,10 @@ def home(request):
 
 def expenses_index(request):
   expenses = Expense.objects.filter(user=request.user)
+  categories = Category.objects.all()
   return render(request, 'expenses/index.html', {
-    'expenses': expenses
+    'expenses': expenses,
+    'categories': categories
   })
 
 def expenses_detail(request, expense_id):
@@ -28,6 +29,13 @@ class ExpenseCreate(CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)  
 
+class ExpenseUpdate(UpdateView):
+  model = Expense
+  fields = ['title', 'amount', 'date', 'category']
+
+class ExpenseDelete(DeleteView):
+  model = Expense
+  success_url = '/expenses'
 
 def signup(request):
   error_message = ''
@@ -47,3 +55,7 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+class CategoryCreate(CreateView):
+  model = Category
+  fields = '__all__'
