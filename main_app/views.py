@@ -41,7 +41,7 @@ def expenses_detail(request, expense_id):
 
 def categories_detail(request, category_id):
   category = Category.objects.get(id=category_id)
-  expenses = Expense.objects.filter(category=category)
+  expenses = Expense.objects.filter(category=category, user=request.user)
   return render(request, 'main_app/category_detail.html', { 'category': category, 'expenses': expenses})
 
 def categories_index(request):
