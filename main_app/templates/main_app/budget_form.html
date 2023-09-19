@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if object %}
+  <h1>Edit Budget</h1>
+{% else %}
+  <h1>Welcome! To get started, add a budget.</h1>
+{% endif %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit">Submit</button>
+  </form>
+
+{% endblock %}

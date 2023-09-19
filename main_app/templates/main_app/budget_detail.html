@@ -10,7 +10,7 @@
       <h5>Budget: {{ budget.amount }}</h5>
       <h5>Total expenses: {{ sum }}</h5>
       <h5>{{ budget.start_date }} - {{ budget.end_date }}</h5>
-      <h5> {{percent_left}}</h5>
+      <a href="{% url 'budget_update' budget.id %}">Edit Budget</a>
     </div>
   </div>
   <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{percent_left}}" aria-valuemin="0" aria-valuemax="100">

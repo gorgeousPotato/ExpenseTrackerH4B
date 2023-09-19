@@ -13,6 +13,9 @@ class Budget(models.Model):
   def __str__(self):
     return f"{self.amount} from {self.start_date} to {self.end_date}"
   
+  def get_absolute_url(self):
+    return reverse('index')
+  
 class Category(models.Model):
   title=models.CharField(max_length=50)
   icon=models.CharField(max_length=200, default='fa-dollar-sign')

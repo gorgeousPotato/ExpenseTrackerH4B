@@ -3,14 +3,15 @@
 
 <div class="budget">
   <div class="flex-2-col">
-    <h1 class="accent-h1">$528</h1>
+    <h1 class="accent-h1"> {{ amount_left }}</h1>
     <div>
-      <h5>$1692 spent</h5>
-      <h5>August 15 - September 15</h5>
+      <h5>Budget: {{ budget.amount }}</h5>
+      <h5>Total expenses: {{ sum }}</h5>
+      <h5>{{ budget.start_date }} - {{ budget.end_date }}</h5>
     </div>
   </div>
-  <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-    <div class="progress-bar w-75"></div>
+  <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{percent_left}}" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar" style="width: {{percent_left}}%">{{percent_left}}</div>
   </div>
 </div>
 <div class="expenses">
