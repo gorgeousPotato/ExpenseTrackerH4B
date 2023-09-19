@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="budget">
+  <div class="flex-2-col">
+    <h1 class="accent-h1"> {{ amount_left }}</h1>
+    <div>
+      <h5>Budget: {{ budget.amount }}</h5>
+      <h5>Total expenses: {{ sum }}</h5>
+      <h5>{{ budget.start_date }} - {{ budget.end_date }}</h5>
+      <h5> {{percent_left}}</h5>
+    </div>
+  </div>
+  <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{percent_left}}" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar" style="width: {{percent_left}}%">{{percent_left}}</div>
+  </div>
+</div>
+
+
+{% endblock %}

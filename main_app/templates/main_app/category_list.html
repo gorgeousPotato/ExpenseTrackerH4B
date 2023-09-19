@@ -9,6 +9,7 @@
                 <th>Icon</th>
                 <th>Details</th>
                 <th>Edit Category</th>
+                <th>Delete Category</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
                 <td><i class="fa-solid {{ category.icon }}" style="color: #7c8492;"></i></td>
                 <td><a href="{% url 'categories_detail' category.id %}">Details</a></td>
                 <td><a href="{% url 'categories_update' category.id %}">Edit Category</a></td>
+                <td><a href="{% url 'categories_delete' category.id %}">Delete Category</a></td>
             </tr>
             {% endfor %}
         </tbody>

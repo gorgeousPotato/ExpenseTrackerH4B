@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 
 from django.contrib.auth import login
+import datetime
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
-from .models import Expense, Category
+from .models import Expense, Category, Budget
 from django.db.models import Sum
+
 
 
 # Create your views here.
@@ -15,7 +17,12 @@ def home(request):
 def expenses_index(request):
   expenses = Expense.objects.filter(user=request.user)
   categories = Category.objects.all()
-  category_expenses = Category.objects.annotate(total_expenses=Sum('expense__amount'))
+  # category_expenses = {}
+  # for category in categories:
+  #   total_expenses = expenses.filter(category=category).annotate(total_expenses=Sum('amount'))['total_expenses']
+  #   category_expenses[category] = total_expenses
+  # category_expenses = Category.objects.annotate(total_expenses=Sum('expense__amount'))
+  category_expenses = Category.objects.filter(expense__user = request.user).annotate(total_expenses = Sum('expense__amount'))
   return render(request, 'expenses/index.html', {
     'expenses': expenses,
     'categories': categories,
@@ -30,6 +37,23 @@ def categories_detail(request, category_id):
   category = Category.objects.get(id=category_id)
   expenses = Expense.objects.filter(category=category)
   return render(request, 'main_app/category_detail.html', { 'category': category, 'expenses': expenses})
+
+def budget_detail(request):
+  budgets = Budget.objects.filter(user=request.user)
+  budget = budgets[0]
+  expenses = Expense.objects.filter(user=request.user)
+  sum = 0
+  for expense in expenses:
+    if expense.date >= budget.start_date and expense.date <= budget.end_date:
+      sum += expense.amount
+  percent_left = int(((budget.amount - sum) / budget.amount) * 100)
+  amount_left = budget.amount - sum
+  return render(request, 'main_app/budget_detail.html', { 
+    'budget': budget,
+    'sum': sum,
+    'amount_left': amount_left,
+    'percent_left': percent_left
+      })
 
 class ExpenseCreate(CreateView):
   model = Expense
@@ -54,6 +78,10 @@ class CategoryCreate(CreateView):
 class CategoryUpdate(UpdateView):
   model = Category
   fields = ['title']
+
+class CategoryDelete(DeleteView):
+  model = Category
+  success_url = '/categories'
 
 class CategoryList(ListView):
   model = Category
