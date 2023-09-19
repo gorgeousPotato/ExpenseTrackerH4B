@@ -17,16 +17,23 @@ def home(request):
 def expenses_index(request):
   expenses = Expense.objects.filter(user=request.user)
   categories = Category.objects.all()
-  # category_expenses = {}
-  # for category in categories:
-  #   total_expenses = expenses.filter(category=category).annotate(total_expenses=Sum('amount'))['total_expenses']
-  #   category_expenses[category] = total_expenses
-  # category_expenses = Category.objects.annotate(total_expenses=Sum('expense__amount'))
   category_expenses = Category.objects.filter(expense__user = request.user).annotate(total_expenses = Sum('expense__amount'))
+  budgets = Budget.objects.filter(user=request.user)
+  budget = budgets[0]
+  sum = 0
+  for expense in expenses:
+    if expense.date >= budget.start_date and expense.date <= budget.end_date:
+      sum += expense.amount
+  percent_left = int(((budget.amount - sum) / budget.amount) * 100)
+  amount_left = budget.amount - sum
   return render(request, 'expenses/index.html', {
     'expenses': expenses,
     'categories': categories,
-    'category_expenses': category_expenses
+    'category_expenses': category_expenses,
+    'budget': budget,
+    'sum': sum,
+    'amount_left': amount_left,
+    'percent_left': percent_left
   })
 
 def expenses_detail(request, expense_id):
@@ -86,11 +93,17 @@ class CategoryDelete(DeleteView):
 class CategoryList(ListView):
   model = Category
 
-# class CategoryDetail(ListView):
-#   model = Expense
-#   context_object_name = 'expenses'
+class BudgetCreate(CreateView):
+  model = Budget
+  fields = ['amount', 'start_date', 'end_date']
 
-#   def get_queryset()
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form) 
+  
+class BudgetUpdate(UpdateView):
+  model = Budget
+  fields = ['amount', 'start_date', 'end_date']
 
 def signup(request):
   error_message = ''
@@ -103,7 +116,7 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('index')
+      return redirect('budget_create')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
