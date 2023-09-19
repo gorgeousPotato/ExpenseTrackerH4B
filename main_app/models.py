@@ -19,6 +19,7 @@ class Budget(models.Model):
 class Category(models.Model):
   title=models.CharField(max_length=50)
   icon=models.CharField(max_length=200, default='fa-dollar-sign')
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def get_absolute_url(self):
     return reverse('categories_detail', kwargs={"category_id": self.id})
