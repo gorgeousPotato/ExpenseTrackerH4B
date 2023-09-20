@@ -4,7 +4,6 @@ from django.contrib.auth import login
 import datetime
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView
 from .models import Expense, Category, Budget
 from django.db.models import Sum
 
@@ -42,8 +41,12 @@ def expenses_detail(request, expense_id):
 
 def categories_detail(request, category_id):
   category = Category.objects.get(id=category_id)
-  expenses = Expense.objects.filter(category=category)
+  expenses = Expense.objects.filter(category=category, user=request.user)
   return render(request, 'main_app/category_detail.html', { 'category': category, 'expenses': expenses})
+
+def categories_index(request):
+  categories = Category.objects.filter(user=request.user)
+  return render(request, 'main_app/category_index.html', { 'categories': categories})
 
 def budget_detail(request):
   budgets = Budget.objects.filter(user=request.user)
@@ -69,6 +72,11 @@ class ExpenseCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)  
+  
+  def get_form(self, form_class=None):
+        form = super(ExpenseCreate, self).get_form(form_class)
+        form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
+        return form
 
 class ExpenseUpdate(UpdateView):
   model = Expense
@@ -90,9 +98,6 @@ class CategoryDelete(DeleteView):
   model = Category
   success_url = '/categories'
 
-class CategoryList(ListView):
-  model = Category
-
 class BudgetCreate(CreateView):
   model = Budget
   fields = ['amount', 'start_date', 'end_date']
@@ -108,18 +113,20 @@ class BudgetUpdate(UpdateView):
 def signup(request):
   error_message = ''
   if request.method == 'POST':
-    # This is how to create a 'user' form object
-    # that includes the data from the browser
     form = UserCreationForm(request.POST)
     if form.is_valid():
-      # This will add the user to the database
       user = form.save()
-      # This is how we log a user in via code
       login(request, user)
+      categories = Category.objects.bulk_create(
+        [
+          Category(title='Groceries', icon='fa-cart-shopping', user=user),
+          Category(title='Bills', icon='fa-file-invoice-dollar', user=user),
+          Category(title='Shopping', icon='fa-credit-card', user=user),
+        ]
+      )
       return redirect('budget_create')
     else:
       error_message = 'Invalid sign up - try again'
-  # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
