@@ -82,7 +82,19 @@ def budget_detail(request):
     'sum': sum,
     'amount_left': amount_left,
     'percent_left': percent_left
-      })
+  })
+
+@require_budget
+@login_required
+def charts(request):
+  expenses = Expense.objects.filter(user=request.user)
+  categories = Category.objects.all()
+  category_expenses = Category.objects.filter(expense__user = request.user).annotate(total_expenses = Sum('expense__amount'))
+  return render(request, 'main_app/charts.html', {
+    'expenses': expenses,
+    'categories': categories,
+    'category_expenses': category_expenses,
+  })
 
 
 class ExpenseCreate(LoginRequiredMixin, CreateView):
