@@ -14,5 +14,12 @@
     </table>
     <button type="submit">Submit</button>
   </form>
-
+  <script>
+    $(function () {
+       $('#id_date').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+       });
+    });
+  </script>
 {% endblock %}
