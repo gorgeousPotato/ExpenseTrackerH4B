@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-
 from django.contrib.auth import login
-import datetime
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Expense, Category, Budget
@@ -10,9 +10,20 @@ from django.db.models import Sum
 
 
 # Create your views here.
+def require_budget(view_function):
+  def _wrapped_view(request, *view_args, **decorator_kwargs):
+    if Budget.objects.filter(user=request.user).exists():
+      return view_function(request, *view_args, **decorator_kwargs)
+    else:
+      return redirect('budget_create')
+  return _wrapped_view
+
+
 def home(request):
     return render(request, 'home.html')
 
+
+@login_required
 def expenses_index(request):
   expenses = Expense.objects.filter(user=request.user)
   categories = Category.objects.all()
@@ -35,19 +46,27 @@ def expenses_index(request):
     'percent_left': percent_left
   })
 
+@require_budget
+@login_required
 def expenses_detail(request, expense_id):
   expense = Expense.objects.get(id=expense_id)
   return render(request, 'expenses/detail.html', { 'expense': expense })
 
+@require_budget
+@login_required
 def categories_detail(request, category_id):
   category = Category.objects.get(id=category_id)
   expenses = Expense.objects.filter(category=category, user=request.user)
   return render(request, 'main_app/category_detail.html', { 'category': category, 'expenses': expenses})
 
+@require_budget
+@login_required
 def categories_index(request):
   categories = Category.objects.filter(user=request.user)
   return render(request, 'main_app/category_index.html', { 'categories': categories})
 
+@require_budget
+@login_required
 def budget_detail(request):
   budgets = Budget.objects.filter(user=request.user)
   budget = budgets[0]
@@ -65,7 +84,8 @@ def budget_detail(request):
     'percent_left': percent_left
       })
 
-class ExpenseCreate(CreateView):
+
+class ExpenseCreate(LoginRequiredMixin, CreateView):
   model = Expense
   fields = ['title', 'amount', 'date', 'category']
 
@@ -78,27 +98,28 @@ class ExpenseCreate(CreateView):
         form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
         return form
 
-class ExpenseUpdate(UpdateView):
+
+class ExpenseUpdate(LoginRequiredMixin, UpdateView):
   model = Expense
   fields = ['title', 'amount', 'date', 'category']
 
-class ExpenseDelete(DeleteView):
+class ExpenseDelete(LoginRequiredMixin, DeleteView):
   model = Expense
   success_url = '/expenses'
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
   model = Category
   fields = ['title']
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, UpdateView):
   model = Category
   fields = ['title']
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
   model = Category
   success_url = '/categories'
 
-class BudgetCreate(CreateView):
+class BudgetCreate(LoginRequiredMixin, CreateView):
   model = Budget
   fields = ['amount', 'start_date', 'end_date']
 
@@ -106,7 +127,7 @@ class BudgetCreate(CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form) 
   
-class BudgetUpdate(UpdateView):
+class BudgetUpdate(LoginRequiredMixin, UpdateView):
   model = Budget
   fields = ['amount', 'start_date', 'end_date']
 
