@@ -49,17 +49,17 @@
 </div>
 <div class="categories">
   <h3>Expenses by Categories</h3>
-
-  <tbody>
-    {% for category_expense in category_expenses %}
-        <tr>
-            <td>{{ category_expense.title }}</td>
-            <td><i class="fa-solid {{ category_expense.icon }}" style="color: #7c8492;"></i></td>
-            <td>{{ category_expense.total_expenses}}</td>
-            <a href="{% url 'categories_detail' category_expense.id %}">Details</a>
-        </tr>
-    {% endfor %}
-  </tbody>
+    <div class="exp-by-cat-container">
+      {% for category_expense in category_expenses %}
+      <a href="{% url 'categories_detail' category_expense.id %}">
+        <div class="category-card">
+          <i class="fa-solid {{ category_expense.icon }} fa-2xl" style="color: #7c8492;"></i>
+          <p class="p-expense-by-cat">{{ category_expense.title }}</p>
+          <h3>{{ category_expense.total_expenses}}</h3>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
