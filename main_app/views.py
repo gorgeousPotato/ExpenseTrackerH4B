@@ -41,7 +41,7 @@ def expenses_detail(request, expense_id):
 
 def categories_detail(request, category_id):
   category = Category.objects.get(id=category_id)
-  expenses = Expense.objects.filter(category=category)
+  expenses = Expense.objects.filter(category=category, user=request.user)
   return render(request, 'main_app/category_detail.html', { 'category': category, 'expenses': expenses})
 
 def categories_index(request):
@@ -72,6 +72,11 @@ class ExpenseCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)  
+  
+  def get_form(self, form_class=None):
+        form = super(ExpenseCreate, self).get_form(form_class)
+        form.fields['category'].queryset = Category.objects.filter(user=self.request.user)
+        return form
 
 class ExpenseUpdate(UpdateView):
   model = Expense
