@@ -80,14 +80,20 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
-.category-card img {
-  width: 4rem;
+/* i {
+  margin: 10rem;
+} */
+
+.p-expense-by-cat {
+  padding-top: 2rem;
 }
 
 p {
   color: rgb(171, 171, 171);
+  padding-top:1rem;
 }
 
 .expenses-btn-container {
