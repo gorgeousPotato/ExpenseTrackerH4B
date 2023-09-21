@@ -19,7 +19,9 @@
   <body>
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
       <a href="/expenses" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <span class="fs-4">SpendWise</span>
+        <span class="fs-4">
+          <img src="{% static 'images/sw-inline.png' %}" class="logo3">
+        </span>
       </a>
       <ul class="nav nav-pills">
       {% if user.is_authenticated %} 
@@ -42,7 +44,7 @@
           <use xlink:href="#bootstrap"></use>
         </svg>
       </a>
-      <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Hugs4Bugs, Inc</span>
+      <span class="navbar sticky-bottom bg-body-tertiary">© 2023 Hugs4Bugs, Inc</span>
     </div>
   </body>
 </html>
