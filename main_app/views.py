@@ -152,6 +152,9 @@ def signup(request):
           Category(title='Groceries', icon='fa-cart-shopping', user=user),
           Category(title='Bills', icon='fa-file-invoice-dollar', user=user),
           Category(title='Shopping', icon='fa-credit-card', user=user),
+          Category(title='Car', icon='fa-car-on', user=user),
+          Category(title='House', icon='fa-house', user=user),
+          Category(title='Entertainment', icon='fa-champagne-glasses', user=user),
         ]
       )
       return redirect('budget_create')
