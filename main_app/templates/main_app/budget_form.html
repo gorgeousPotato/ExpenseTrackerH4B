@@ -18,7 +18,9 @@
 <body>
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
     <a href="/expenses" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <span class="fs-4">SpendWise</span>
+      <span class="fs-4">
+        <img src="{% static 'images/sw-inline.png' %}" class="logo3">
+      </span>
     </a>
     <ul class="nav nav-pills">
     {% if user.is_authenticated %} 
@@ -27,11 +29,13 @@
       <li></li>
     {% endif %}
     </header>
-  <main>
+  <div class="budget-form">
+  <div>
     {% if object %}
     <h1>Edit Budget</h1>
   {% else %}
-    <h1>Welcome! To get started, add a budget.</h1>
+    <h2>Welcome!</h2>
+    <h5>Add a budget to get started</h5>
   {% endif %}
   
   <form action="" method="POST">
@@ -39,17 +43,10 @@
       <table>
         {{ form.as_table }}
       </table>
-      <button type="submit">Submit</button>
+      <button type="submit" class="btn btn-primary btn-m px-4 gap-3 signupbtn btn-margin">Add Budget</button>
     </form>
-  </main>
-  <div class="col-md-4 d-flex align-items-center">
-    <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-      <svg class="bi" width="30" height="24">
-        <use xlink:href="#bootstrap"></use>
-      </svg>
-    </a>
-    <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Hugs4Bugs, Inc</span>
-  </div>
+</div>
+</div>
   <script>
     $(function () {
        $('#id_start_date').datepicker({

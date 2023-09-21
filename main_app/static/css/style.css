@@ -2,6 +2,17 @@
   box-sizing: border-box;
 }
 
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
 body {
   height: 100vh;
   margin: 0;
@@ -10,6 +21,7 @@ body {
 }
 
 .categories {
+  grid-column: 1 / span 2;
   margin-top: 6rem;
 }
 
@@ -21,7 +33,7 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: 6fr 4fr;
+  grid-template-columns: 5.5fr 4.5fr;
   grid-template-rows: 2fr 3fr;
   height: 80vh;
   gap: 1rem;
@@ -72,6 +84,7 @@ main {
 
 .exp-by-cat-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .category-card {
@@ -190,3 +203,55 @@ video {
   height: 25vh;
 }
 
+/* sign up style */
+
+.flex-center li {
+  color: grey;
+}
+
+.flex-center label {
+  color: black;
+}
+
+.flex-center .helptext {
+  color: grey;
+}
+
+/* .form-signup {
+  width: 30vw;
+} */
+
+/* budget form
+*/
+
+.budget-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.budget-form button {
+  background-color: #3463BD;
+  color: white;
+}
+
+.budget-form button:hover {
+  background-color: #6a93df;
+  color: white;
+}
+
+.logo3 {
+  width: 16vw;
+}
+
+.budget-form table {
+  margin: 0 auto;
+}
+
+/* index page */
+
+.expense-scroll {
+  overflow: scroll;
+  height: 40vh;
+}
