@@ -114,3 +114,79 @@ p {
   background-color: none !important;
   border: none !important;
 }
+
+.logo1 {
+  width: 50vw;
+  height: 50vh;
+  position: relative;
+}
+
+#description {
+  margin-top: -10rem;
+}
+
+.lead {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.signupbtn {
+  background-color: #8c52ff;
+  border: none;
+}
+
+.signupbtn:hover {
+  background-color: white;
+  color: black;
+}
+
+.loginbtn {
+  background-color: white;
+  border: none;
+  color: black;
+}
+
+.loginbtn:hover {
+  background-color: #c1a4fc;
+  color: white;
+}
+
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Log In */
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.flex-center h1 {
+  text-align: center;
+  margin-top: -3rem;
+}
+
+.flex-center input {
+  border: none;
+}
+
+.btn-margin {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.logo2 {
+  width: 18vw;
+  height: 25vh;
+}
+

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,19 +12,15 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
   </head>
   <body>
     <div class="px-4 py-5 my-5 text-center">
-      <img
-        class="d-block mx-auto mb-4"
-        src="/docs/5.3/assets/brand/bootstrap-logo.svg"
-        alt=""
-        width="72"
-        height="57"
-      />
-      <h1 class="display-5 fw-bold text-body-emphasis">SpendWise</h1>
-      <div class="col-lg-6 mx-auto">
+      <img src="{% static 'images/sw-logo.svg' %}" class="logo1">
+      <video playsinline autoplay muted loop id="bgvid">
+        <source src="{% static 'images/background.mp4' %}" type="video/mp4">
+      </video>
+      <div class="col-lg-6 mx-auto" id="description">
         <p class="lead mb-4">
           SpendWise is your go-to solution for effortlessly managing your
           expenses. With intuitive features, insightful reports, and
@@ -31,12 +29,12 @@
         </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
           <form action="{% url 'signup' %}" method="GET">
-            <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">
+            <button type="submit" class="btn btn-primary btn-lg px-4 gap-3 signupbtn">
               Sign Up
             </button>
           </form>
           <form action="{% url 'login' %}" method="GET">
-            <button type="submit" class="btn btn-outline-secondary btn-lg px-4">
+            <button type="submit" class="btn btn-outline-secondary btn-lg px-4 loginbtn">
               Log In
             </button>
           </form>
