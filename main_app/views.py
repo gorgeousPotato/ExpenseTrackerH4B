@@ -22,7 +22,7 @@ def require_budget(view_function):
 def home(request):
     return render(request, 'home.html')
 
-
+@require_budget
 @login_required
 def expenses_index(request):
   expenses = Expense.objects.filter(user=request.user)
