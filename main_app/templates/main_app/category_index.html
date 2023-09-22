@@ -20,7 +20,7 @@
                     <td><i class="fa-solid {{ category.icon }}" style="color: #7c8492;"></i></td>
                     <td><a href="{% url 'categories_detail' category.id %}">Details</a></td>
                     <td><form action="{% url 'categories_update' category.id %}"><button class="edit-btn"><i class="fa-solid fa-pen"></i></button></form></td>
-                    <td><form action="{% url 'categories_delete' category.id %}"><button class="edit-btn"><i class="fa-solid fa-x"></i></button></form></td>
+                    <td><form action="{% url 'categories_delete' category.id %}"><button class="edit-btn remove-btn"><i class="fa-solid fa-x" style="color: white;"></i></button></form></td>
                 </tr>
                 {% endfor %}
                 <tr>

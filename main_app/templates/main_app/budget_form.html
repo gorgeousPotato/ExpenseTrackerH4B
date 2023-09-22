@@ -29,7 +29,8 @@
       <li></li>
     {% endif %}
     </header>
-  <div class="budget-form">
+    
+<div class="budget-form">
   <div>
     {% if object %}
     <h1>Edit Budget</h1>
@@ -38,27 +39,28 @@
     <h5>Add a budget to get started</h5>
   {% endif %}
   
-  <form action="" method="POST">
+    <form action="" method="POST">
       {% csrf_token %}
       <table>
         {{ form.as_table }}
       </table>
       <button type="submit" class="btn btn-primary btn-m px-4 gap-3 signupbtn btn-margin">Add Budget</button>
     </form>
+  </div>
 </div>
-</div>
-  <script>
-    $(function () {
-       $('#id_start_date').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-       });
 
-       $('#id_end_date').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-       });
-    });
-  </script>
+<script>
+  $(function () {
+      $('#id_start_date').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      });
+
+      $('#id_end_date').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      });
+  });
+</script>
 </body>
 </html>

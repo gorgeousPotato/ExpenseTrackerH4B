@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% if object %}
-  <h1>Edit Expense</h1>
-{% else %}
-  <h1>Add Expense</h1>
-{% endif %}
+<div class="budget-form expense-form">
+  <div>
+    {% if object %}
+    <h1>Edit Expense</h1>
+    {% else %}
+    <h1>Add Expense</h1>
+    {% endif %}
+    <form action="" method="POST">
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <button class="btn btn-primary btn-m px-4 gap-3 signupbtn btn-margin" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <button type="submit">Submit</button>
-  </form>
   <script>
     $(function () {
        $('#id_date').datepicker({
