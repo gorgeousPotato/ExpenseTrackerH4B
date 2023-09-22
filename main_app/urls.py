@@ -17,5 +17,4 @@ urlpatterns = [
     path('budget/', views.budget_detail, name='budget_detail'),
     path('budget/create/', views.BudgetCreate.as_view(), name='budget_create'),
     path('budget/<int:pk>/update/', views.BudgetUpdate.as_view(), name='budget_update'),
-    path('charts/', views.charts, name='charts'),
 ]

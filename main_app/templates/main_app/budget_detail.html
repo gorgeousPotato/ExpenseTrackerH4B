@@ -5,18 +5,30 @@
 
 <div class="budget">
   <div class="flex-2-col">
-    <h1 class="accent-h1"> {{ amount_left }}</h1>
+    <h1 class="accent-h1"> ${{ amount_left }}</h1>
     <div>
-      <h5>Budget: {{ budget.amount }}</h5>
-      <h5>Total expenses: {{ sum }}</h5>
+      <h5>Budget: ${{ budget.amount }}</h5>
+      <h5>Total expenses: ${{ sum }}</h5>
       <h5>{{ budget.start_date }} - {{ budget.end_date }}</h5>
-      <a href="{% url 'budget_update' budget.id %}">Edit Budget</a>
     </div>
   </div>
   <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{percent_left}}" aria-valuemin="0" aria-valuemax="100">
-    <div class="progress-bar" style="width: {{percent_left}}%">{{percent_left}}</div>
+    <div id='pb' class="progress-bar" style="width: {{percent_left}}%"> {{percent_left}} %</div>
   </div>
+  <form action="{% url 'budget_update' budget.id %}">
+    <button class="btn btn-primary btn-xl px-4 gap-3 signupbtn">Edit Budget</button>
+  </form>
 </div>
+
+<script>
+  let percent = {{percent_left}}
+  progressBar = document.getElementById('pb')
+  if (percent <= 20) {
+    progressBar.style.backgroundColor = '#992835';
+  } else if (percent <= 50) {
+    progressBar.style.backgroundColor = '#de9637';
+  }
+</script>
 
 
 {% endblock %}

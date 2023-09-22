@@ -1,29 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <h1>Expense Categories</h1>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Icon</th>
-                <th>Details</th>
-                <th>Edit Category</th>
-                <th>Delete Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for category in categories %}
-            <tr>
-                <td>{{ category.title }}</td>
-                <td><i class="fa-solid {{ category.icon }}" style="color: #7c8492;"></i></td>
-                <td><a href="{% url 'categories_detail' category.id %}">Details</a></td>
-                <td><a href="{% url 'categories_update' category.id %}">Edit Category</a></td>
-                <td><a href="{% url 'categories_delete' category.id %}">Delete Category</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <li class="nav-item"><a href="{% url 'ctg_create' %}" class="nav-link">Add Category</a></li>
+    <div class="expense-categories">
+        <h1>Expense Categories</h1>
+        <table class="table table-bordered categories-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Icon</th>
+                    <th>Details</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.title }}</td>
+                    <td><i class="fa-solid {{ category.icon }}" style="color: #7c8492;"></i></td>
+                    <td><a href="{% url 'categories_detail' category.id %}">Details</a></td>
+                    <td><form action="{% url 'categories_update' category.id %}"><button class="edit-btn"><i class="fa-solid fa-pen"></i></button></form></td>
+                    <td><form action="{% url 'categories_delete' category.id %}"><button class="edit-btn"><i class="fa-solid fa-x"></i></button></form></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        <form action="{% url 'ctg_create' %}">
+                            <button class="btn btn-primary btn-xl px-4 gap-3 signupbtn btn-margin">Add Category</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 {% endblock %}

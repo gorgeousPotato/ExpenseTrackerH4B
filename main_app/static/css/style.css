@@ -20,6 +20,10 @@ body {
   margin: 0 4rem;
 }
 
+.footer {
+  color: grey;
+}
+
 .categories {
   margin-top: 1rem;
   grid-column: 1 / span 2;
@@ -55,7 +59,7 @@ main {
 }
 
 .progress-bar {
-  background-color: rgb(129, 99, 157);
+  background-color: #00B7A8;
 }
 
 .accent-h1 {
@@ -279,4 +283,59 @@ video {
   margin-top: 1rem;
   border: none;
   border-radius: 100px;
+}
+
+/* Category index */
+
+.categories-table .edit-btn {
+  margin-top: 0;
+}
+
+.categories-table {
+  border: 1px solid white;
+}
+
+.expense-categories .signupbtn{
+  color: white;
+  background-color: #3463BD;
+}
+
+.expense-categories .signupbtn:hover{
+  color: white;
+  background-color: #6a93df;
+}
+
+
+/* Budget details */
+
+.budget .btn {
+  margin-top: 2rem;
+  background-color: #3463BD;
+}
+
+/* Confirm delete */
+
+.delete-btn-container {
+  width:10vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top:2rem;
+}
+
+.delete-btn-container .signupbtn {
+  color: white;
+  background-color: #992835;
+  margin-right: 1rem;
+}
+
+.cancel-btn {
+  background-color: white;
+  border: 1px solid rgb(226, 226, 226);
+  color: black;
+}
+
+.cancel-btn:hover {
+  background-color: rgb(226, 226, 226);
+  border: 1px solid rgb(226, 226, 226);
 }
