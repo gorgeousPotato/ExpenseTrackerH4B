@@ -19,6 +19,7 @@ class Budget(models.Model):
 class Category(models.Model):
   title=models.CharField(max_length=50)
   icon=models.CharField(max_length=200, default='fa-dollar-sign')
+  color=models.CharField(max_length=50, default='rgba(255, 99, 132, 0.7)')
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def get_absolute_url(self):
