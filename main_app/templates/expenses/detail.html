@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
+  <h1 class="inline-h1">Expense Details</h1>
+  <a href="{% url 'expenses_update' expense.id %}" class="exp-edit">
+    <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+  </a>
+  <a href="{% url 'expenses_delete' expense.id %}">
+    <button class="edit-btn remove-btn"><i class="fa-solid fa-x" style="color: white;"></i></button>
+  </a> 
   <div class="expense-detail-table">
     <div>
       <h3>Date:</h3>
@@ -15,7 +22,5 @@
       <h3>{{ expense.category }}</h3>
     </div>
   </div>
-  <button href="{% url 'expenses_update' expense.id %}" class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-  <button href="{% url 'expenses_delete' expense.id %}" class="edit-btn"><i class="fa-solid fa-x"></i></button> 
 </div>
 {% endblock %}
