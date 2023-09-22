@@ -30,6 +30,19 @@ SpendWise is a user-friendly and efficient expense tracker application designed 
 ![alt text](https://github.com/gorgeousPotato/screenshots_spendwise/blob/main/7.2.png "Budget details page")
 ![alt text](https://github.com/gorgeousPotato/screenshots_spendwise/blob/main/7.3.png "Budget details page")
 
+## Trello Board with User Stories
+
+https://trello.com/b/gnpcYrwV/expense-tracker-app
+
+## ERD
+
+https://lucid.app/lucidchart/1ed8a858-4a41-42cd-ae58-903acfd75635/edit?page=0_0&invitationId=inv_a5b07545-c583-4d0e-aedc-4a0252f58c79#
+
+
+## Wireframes in Figma
+
+https://www.figma.com/file/9rCNt3U2d2CsyNcTTL97hE/SpendWise?type=design&node-id=0-1&mode=design&t=ou3TRNzARsqQt2uW-0
+
 
 ## Technologies used
 
