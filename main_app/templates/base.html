@@ -28,7 +28,6 @@
       {% if user.is_authenticated %} 
         <li class="nav-item"><a href="{% url 'categories_index' %}" class="nav-link">Manage Categories</a></li>
         <li class="nav-item"><a href="{% url 'budget_detail' %}" class="nav-link">Budget Details</a></li>
-        <li class="nav-item"><a href="{% url 'charts' %}" class="nav-link">Charts</a></li>
         <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
       {%  else %}
         <li><a href="{% url 'login' %}">Log In</a></li>
@@ -42,7 +41,7 @@
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
       </a>
-      <span class="flex-shrink-0 py-4 sticky">© 2023 Hugs4Bugs, Inc</span>
+      <span class="flex-shrink-0 py-4 sticky footer">© 2023 Hugs4Bugs, Inc</span>
     </div>
   </body>
 </html>
