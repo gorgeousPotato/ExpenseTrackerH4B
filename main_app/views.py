@@ -83,7 +83,19 @@ def budget_detail(request):
     'sum': sum,
     'amount_left': amount_left,
     'percent_left': percent_left
-      })
+  })
+
+@require_budget
+@login_required
+def charts(request):
+  expenses = Expense.objects.filter(user=request.user)
+  categories = Category.objects.all()
+  category_expenses = Category.objects.filter(expense__user = request.user).annotate(total_expenses = Sum('expense__amount'))
+  return render(request, 'main_app/charts.html', {
+    'expenses': expenses,
+    'categories': categories,
+    'category_expenses': category_expenses,
+  })
 
 @require_budget
 @login_required
@@ -149,12 +161,12 @@ def signup(request):
       login(request, user)
       categories = Category.objects.bulk_create(
         [
-          Category(title='Groceries', icon='fa-cart-shopping', user=user),
-          Category(title='Bills', icon='fa-file-invoice-dollar', user=user),
-          Category(title='Shopping', icon='fa-credit-card', user=user),
-          Category(title='Car', icon='fa-car-on', user=user),
-          Category(title='House', icon='fa-house', user=user),
-          Category(title='Entertainment', icon='fa-champagne-glasses', user=user),
+          Category(title='Groceries', icon='fa-cart-shopping', user=user, color="rgba(54, 162, 235, 0.7)"),
+          Category(title='Bills', icon='fa-file-invoice-dollar', user=user, color="rgba(255, 206, 86, 0.7)"),
+          Category(title='Shopping', icon='fa-credit-card', user=user, color="#F2C654"),
+          Category(title='Car', icon='fa-car-on', user=user, color="#845FFC"),
+          Category(title='House', icon='fa-house', user=user, color="#00B7A8"),
+          Category(title='Entertainment', icon='fa-champagne-glasses', user=user, color="#EE8EF0"),
         ]
       )
       return redirect('budget_create')

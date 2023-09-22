@@ -2,17 +2,16 @@
 {% block content %}
 
 <div class="budget">
+  <h3>Hello, <span class="secondary-color">{{ request.user }}</span></h3>
+  <h5>Budget remaining</h5>
   <div class="flex-2-col">
-    <h1 class="accent-h1"> {{ amount_left }}</h1>
+    <h1 class="accent-h1">$ {{ amount_left }}</h1>
     <div>
-      <h5>Budget: {{ budget.amount }}</h5>
-      <h5>Total expenses: {{ sum }}</h5>
       <h5>{{ budget.start_date }} - {{ budget.end_date }}</h5>
     </div>
   </div>
-  <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{percent_left}}" aria-valuemin="0" aria-valuemax="100">
-    <div class="progress-bar" style="width: {{percent_left}}%">{{percent_left}}</div>
-  </div>
+  <canvas id="pie-chart" height="100vh"></canvas> 
+ 
 </div>
 <div class="expenses">
   <div class="expenses-btn-container">
@@ -29,17 +28,15 @@
           <th scope="col">Title</th>
           <th scope="col">Amount</th>
           <th scope="col">Category</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
         {% for expense in expenses %}
-        <tr>
+        <tr class="table-row" data-href="{% url 'detail' expense.id %}">
           <td>{{ expense.date }}</td>
           <td>{{ expense.title }}</td>
-          <td>{{ expense.amount }}</td>
-          <td><span class="category c-1">{{ expense.category }}</span></td>
-          <td><a href="{% url 'detail' expense.id %}">Details</a></td>
+          <td>$ {{ expense.amount }}</td>
+          <td><span style="background-color: {{ expense.category.color }};">{{ expense.category }}</span></td>
         </tr>
         </a>
         {% endfor %}
@@ -55,11 +52,45 @@
         <div class="category-card">
           <i class="fa-solid {{ category_expense.icon }} fa-2xl" style="color: #7c8492;"></i>
           <p class="p-expense-by-cat">{{ category_expense.title }}</p>
-          <h4>{{ category_expense.total_expenses}}</h4>
+          <h4>$ {{ category_expense.total_expenses}}</h4>
         </div>
       </a>
       {% endfor %}
     </div>
 </div>
+
+<script>
+  $(document).ready(function($) {
+    $(".table-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+
+let ctx = document.getElementById('pie-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+            labels: [{% for category in category_expenses %}'{{ category.title }}',{% endfor %}],
+            datasets: [{
+                label: 'Total Expenses',
+                data: [{% for category in category_expenses %}{{ category.total_expenses }},{% endfor %}],
+                backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        '#F2C654',
+                        '#845FFC',
+                        '#00B7A8',
+                        '#EE8EF0',
+        
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: { position: 'left', }
+            }
+        });
+</script>
 
 {% endblock %}
